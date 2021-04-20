@@ -8,7 +8,7 @@
       "first": "Claudia",
       "last": "Galvan",
       "favorite": true,
-      "favourite": false
+      "favourite": true
     },
     {
       "twitterHandle": "@crichardson",
