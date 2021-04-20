@@ -1,0 +1,29 @@
+{
+  "name": "ApolloServer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "json-server": "json-server db.json --delay 500 --port 5000",
+    "run-server": "ts-node-dev --respawn server.ts --ignore db.json",
+    "start": "npm-run-all --parallel json-server run-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/json-server": "^0.14.3",
+    "@types/node": "^14.14.41",
+    "json-server": "^0.16.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "apollo-server": "^2.23.0",
+    "axios": "^0.21.1",
+    "graphql": "^15.5.0",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "ts-node-dev": "^1.1.6"
+  }
+}
