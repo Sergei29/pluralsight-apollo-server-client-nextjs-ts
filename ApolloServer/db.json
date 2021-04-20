@@ -40,14 +40,16 @@
       "favorite": false
     },
     {
-      "twitterHandle": "@eveporcello",
-      "company": "Moon Highway",
-      "id": 47343,
-      "bio": "Eve Porcello is an instructor at Moon Highway, egghead.io, and LinkedIn Learning.",
-      "first": "Eve",
-      "last": "Porcello",
-      "favorite": true,
-      "favourite": false
+      "first": "John",
+      "last": "Silver",
+      "favourite": false,
+      "id": 14919
+    },
+    {
+      "first": "Billy",
+      "last": "Bounce",
+      "favourite": false,
+      "id": 14920
     }
   ]
 }

@@ -1,9 +1,10 @@
 import React from "react";
+import SpeakerListItems from "../components/SpeakerListItems/SpeakerListItems";
 
 const IndexPage = () => {
   return (
     <div>
-      <h1>Hello Next and Graphql!</h1>
+      <SpeakerListItems />
     </div>
   );
 };

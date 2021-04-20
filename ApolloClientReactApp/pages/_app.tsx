@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import { ApolloProvider } from "@apollo/client";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { Container } from "@material-ui/core";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import createCache from "@emotion/cache";
@@ -24,13 +25,15 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <CacheProvider value={cache}>
       <Head>
-        <title>My page</title>
+        <title>Speaker list</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
         <ApolloProvider client={apolloClient}>
           <CssBaseline />
-          <Component {...pageProps} />
+          <Container>
+            <Component {...pageProps} />
+          </Container>
         </ApolloProvider>
       </ThemeProvider>
     </CacheProvider>
