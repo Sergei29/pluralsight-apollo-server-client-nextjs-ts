@@ -18,7 +18,7 @@
       "first": "Chris",
       "last": "Richardson",
       "favorite": false,
-      "favourite": true
+      "favourite": false
     },
     {
       "twitterHandle": "",
@@ -37,19 +37,14 @@
       "bio": "An award winning developer and author.",
       "first": "Troy",
       "last": "Miles",
-      "favorite": false
+      "favorite": false,
+      "favourite": false
     },
     {
       "first": "John",
       "last": "Silver",
       "favourite": false,
       "id": 14919
-    },
-    {
-      "first": "Billy",
-      "last": "Bounce",
-      "favourite": false,
-      "id": 14920
     }
   ]
 }

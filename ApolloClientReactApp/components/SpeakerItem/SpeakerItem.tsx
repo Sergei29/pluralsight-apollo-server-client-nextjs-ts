@@ -29,7 +29,7 @@ type Props = {
  * @returns {JSX} component markup, speaker display
  */
 const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
-  const { id, first, last, favourite } = speakerRec;
+  const { id, first, last, favourite, fullName } = speakerRec;
   const classes = useStyles();
   const [toggleSpeakerFavourite] = useMutation(TOGGLE_SPEAKER_FAVOURITE);
   const [deleteSpeaker] = useMutation(DELETE_SPEAKER);
@@ -96,7 +96,7 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
       <CardContent>
         <Grid container spacing={1}>
           <Grid item sm={7}>
-            <Typography>{`${first} ${last} (${id})`}</Typography>
+            <Typography>{`${fullName} (${id})`}</Typography>
           </Grid>
           <Grid item sm={5}>
             <IconButton onClick={handleToggleFavourite}>
