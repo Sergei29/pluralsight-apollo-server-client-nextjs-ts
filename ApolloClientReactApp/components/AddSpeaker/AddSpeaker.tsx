@@ -79,7 +79,12 @@ const AddSpeaker = () => {
   };
   return (
     <div>
-      <Button color="inherit" onClick={handleModalOpen}>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={handleModalOpen}
+        className={classes.addSpeaker__button}
+      >
         insert speaker
       </Button>
       <Dialog
@@ -90,8 +95,11 @@ const AddSpeaker = () => {
           component: "form",
           onSubmit: handleSubmit,
         }}
+        fullWidth
       >
-        <DialogTitle>Add new speaker</DialogTitle>
+        <DialogTitle className={classes.addSpeaker__form__title}>
+          Add new speaker
+        </DialogTitle>
         <DialogContent className={classes.addSpeaker__form}>
           <FormControl>
             <TextField

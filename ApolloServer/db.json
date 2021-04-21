@@ -8,7 +8,7 @@
       "first": "Claudia",
       "last": "Galvan",
       "favorite": true,
-      "favourite": true
+      "favourite": false
     },
     {
       "twitterHandle": "@crichardson",
@@ -18,7 +18,7 @@
       "first": "Chris",
       "last": "Richardson",
       "favorite": false,
-      "favourite": false
+      "favourite": true
     },
     {
       "twitterHandle": "",

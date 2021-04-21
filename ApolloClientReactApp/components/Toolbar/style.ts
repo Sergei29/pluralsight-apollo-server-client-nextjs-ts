@@ -11,5 +11,12 @@ export const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    toolBar: {
+      display: "flex",
+      columnGap: `${theme.spacing(1)}px`,
+    },
+    toolBar__button: {
+      textTransform: "capitalize",
+    },
   })
 );

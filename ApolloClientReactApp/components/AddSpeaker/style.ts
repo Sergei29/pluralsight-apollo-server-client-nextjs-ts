@@ -8,5 +8,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       rowGap: `${theme.spacing(2)}px`,
     },
+    addSpeaker__form__title: {
+      color: theme.palette.success.main,
+    },
+    addSpeaker__button: {
+      textTransform: "capitalize",
+    },
   })
 );

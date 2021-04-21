@@ -5,7 +5,16 @@ import {
   InMemoryCacheConfig,
 } from "@apollo/client";
 
+/**
+ * @description reactive variables
+ */
 export const currentThemeVar = makeVar("light");
+export const checkBoxListVar = makeVar([]);
+
+/**
+ * @description custom hook
+ * @returns {Object} Apollo Client instance
+ */
 export const useApollo = () => {
   const options: InMemoryCacheConfig = {
     typePolicies: {
@@ -14,6 +23,13 @@ export const useApollo = () => {
           fullName: {
             read: (_, { readField }) =>
               `${readField("first")} ${readField("last")}`,
+          },
+          checkBoxColumn: {
+            read: (_, { readField }) => {
+              const strId = readField("id");
+              const arrSelectedSpeakersIds = checkBoxListVar();
+              return arrSelectedSpeakersIds.includes(strId);
+            },
           },
         },
       },

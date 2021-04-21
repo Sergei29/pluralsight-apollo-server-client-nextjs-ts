@@ -1,16 +1,18 @@
 import React from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useReactiveVar } from "@apollo/client";
 import {
   Card,
   CardContent,
   Typography,
   Grid,
   IconButton,
+  Checkbox,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { SpeakerType } from "../types";
+import { checkBoxListVar } from "../../graphql/apolloProvider";
 import { GET_SPEAKERS } from "../../graphql/queries";
 import {
   TOGGLE_SPEAKER_FAVOURITE,
@@ -29,10 +31,11 @@ type Props = {
  * @returns {JSX} component markup, speaker display
  */
 const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
-  const { id, first, last, favourite, fullName } = speakerRec;
+  const { id, first, last, favourite, fullName, checkBoxColumn } = speakerRec;
   const classes = useStyles();
   const [toggleSpeakerFavourite] = useMutation(TOGGLE_SPEAKER_FAVOURITE);
   const [deleteSpeaker] = useMutation(DELETE_SPEAKER);
+  const arrSelectedSpeakersIds = useReactiveVar(checkBoxListVar);
 
   /**
    *@description callback on delete speaker
@@ -91,14 +94,35 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
     });
   };
 
+  /**
+   * @description callback on check speaker
+   * @returns {undefined} sets reactive variable
+   */
+  const handleCheckSpeaker = () => {
+    const arrNewSelectedIds = checkBoxColumn
+      ? arrSelectedSpeakersIds.filter((currentId) => currentId !== id)
+      : arrSelectedSpeakersIds
+      ? [...arrSelectedSpeakersIds, id]
+      : [id];
+
+    checkBoxListVar(arrNewSelectedIds);
+  };
+
   return (
     <Card>
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item sm={7}>
+          <Grid item sm={1} className={classes.speakerItem__checkBox}>
+            <Checkbox
+              checked={checkBoxColumn}
+              onChange={handleCheckSpeaker}
+              inputProps={{ "aria-label": "primary checkbox" }}
+            />
+          </Grid>
+          <Grid item sm={4} className={classes.speakerItem__name}>
             <Typography>{`${fullName} (${id})`}</Typography>
           </Grid>
-          <Grid item sm={5}>
+          <Grid item sm={2}>
             <IconButton onClick={handleToggleFavourite}>
               {favourite ? (
                 <StarIcon classes={{ root: classes.favIconRoot }} />

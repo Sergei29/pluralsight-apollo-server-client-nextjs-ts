@@ -3,6 +3,8 @@ export type SpeakerType = {
   first: string;
   last: string;
   favourite: boolean;
+  fullName?: string;
+  checkBoxColumn?: boolean;
 };
 
 export type NewSpeakerType = {
