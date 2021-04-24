@@ -3,4 +3,11 @@ export type SpeakerType = {
   first: string;
   last: string;
   favourite: boolean;
+  cursor?: string;
+};
+
+export type PageInfoType = {
+  totalItemCount: number;
+  lastCursor?: string;
+  hasNextPage?: boolean;
 };

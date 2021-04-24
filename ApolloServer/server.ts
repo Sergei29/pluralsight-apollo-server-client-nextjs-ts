@@ -1,8 +1,18 @@
 import { gql, ApolloServer, UserInputError, IResolvers } from "apollo-server";
 import axios from "axios";
-import { SpeakerType } from "./types";
+import { SpeakerType, PageInfoType } from "./types";
 
 const DB_URI = "http://localhost:5000";
+
+const getCursor = (mixValue: String | Number) =>
+  Buffer.from(mixValue.toString()).toString("base64");
+
+const getOffsetCustom = (arrData: SpeakerType[], afterCursor: string) => {
+  const offsetBasedOnFind = arrData.findIndex(
+    (objSpeaker) => getCursor(objSpeaker.id) === afterCursor
+  );
+  return offsetBasedOnFind === -1 ? 0 : offsetBasedOnFind + 1;
+};
 
 const typeDefs = gql`
   type Speaker {
@@ -10,6 +20,7 @@ const typeDefs = gql`
     first: String
     last: String
     favourite: Boolean
+    cursor: String
   }
 
   input SpeakerInput {
@@ -20,6 +31,8 @@ const typeDefs = gql`
 
   type PageInfo {
     totalItemCount: Int
+    lastCursor: String
+    hasNextPage: Boolean
   }
 
   type SpeakerResults {
@@ -29,6 +42,7 @@ const typeDefs = gql`
 
   type Query {
     speakers(offset: Int! = 0, limit: Int! = -1): SpeakerResults
+    speakersConcat(limit: Int = -1, afterCursor: String = ""): SpeakerResults
   }
 
   type Mutation {
@@ -51,6 +65,39 @@ const resolvers: IResolvers = {
           totalItemCount: data.length,
         },
       };
+    },
+    speakersConcat: async (parent, args, context, info) => {
+      const { limit, afterCursor } = args;
+      const { data: arrAllSpeakers } = await axios.get(`${DB_URI}/speakers`);
+
+      const arrSortedByName = (arrAllSpeakers as SpeakerType[]).sort(
+        (objCurrent, objNext) => objCurrent.last.localeCompare(objNext.last)
+      );
+
+      const offsetIndex = getOffsetCustom(arrSortedByName, afterCursor);
+
+      const datalist = (arrAllSpeakers as SpeakerType[])
+        .filter((_, index) => {
+          return (
+            index > offsetIndex - 1 &&
+            (offsetIndex + limit > index || limit === 1)
+          );
+        })
+        .map((objSpeaker) => {
+          objSpeaker.cursor = getCursor(objSpeaker.id);
+          return objSpeaker;
+        });
+
+      const pageInfo: PageInfoType = {
+        totalItemCount: datalist.length,
+        lastCursor:
+          datalist.length > 0
+            ? getCursor(datalist[datalist.length - 1].id)
+            : "",
+        hasNextPage: offsetIndex + datalist.length < arrAllSpeakers.length,
+      };
+
+      return { datalist, pageInfo };
     },
   },
   Mutation: {
