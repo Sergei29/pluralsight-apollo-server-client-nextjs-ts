@@ -11,8 +11,6 @@ import {
   Checkbox,
   Button,
 } from "@material-ui/core";
-import { ADD_SPEAKER } from "../../graphql/mutations";
-import { GET_SPEAKERS } from "../../graphql/queries";
 import { NewSpeakerType } from "../types";
 import { validateForm } from "./helpers/validateForm";
 // style:
@@ -24,37 +22,19 @@ const objInitialState = {
   favourite: null,
 };
 
+type Props = { handleAddSpeaker: (objSpeaker: NewSpeakerType) => void };
+
 /**
  * @description functional component, add new speaker
  * @param {Object} props component props
  * @returns {JSX} component markup, button and form modal
  */
-const AddSpeaker = () => {
+const AddSpeaker: React.FC<Props> = ({ handleAddSpeaker }) => {
   const classes = useStyles();
   const [bOpenModal, setbOpenModal] = useState<boolean>(false);
   const [objNewSpeaker, setObjNewSpeaker] = useState<NewSpeakerType>({
     ...objInitialState,
   });
-  const [addSpeaker] = useMutation(ADD_SPEAKER);
-
-  const handleAddSpeaker = (objSpeaker: NewSpeakerType) => {
-    addSpeaker({
-      variables: { speaker: objSpeaker },
-      update: (cache, { data: addSpeaker }) => {
-        const { speakers } = cache.readQuery({ query: GET_SPEAKERS });
-
-        cache.writeQuery({
-          query: GET_SPEAKERS,
-          data: {
-            speakers: {
-              __typename: "SpeakerResults",
-              datalist: [...speakers.datalist, addSpeaker],
-            },
-          },
-        });
-      },
-    });
-  };
 
   const handleModalOpen = () => setbOpenModal(true);
   const handleModalClose = () => setbOpenModal(false);

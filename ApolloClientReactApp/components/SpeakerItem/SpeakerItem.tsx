@@ -12,7 +12,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { SpeakerType } from "../types";
-import { checkBoxListVar } from "../../graphql/apolloProvider";
+import {
+  checkBoxListVar,
+  paginationDataVar,
+} from "../../graphql/apolloProvider";
 import { GET_SPEAKERS } from "../../graphql/queries";
 import {
   TOGGLE_SPEAKER_FAVOURITE,
@@ -36,6 +39,8 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
   const [toggleSpeakerFavourite] = useMutation(TOGGLE_SPEAKER_FAVOURITE);
   const [deleteSpeaker] = useMutation(DELETE_SPEAKER);
   const arrSelectedSpeakersIds = useReactiveVar(checkBoxListVar);
+  const paginationData = useReactiveVar(paginationDataVar);
+  const { currentPage, limit } = paginationData;
 
   /**
    *@description callback on delete speaker
@@ -55,7 +60,13 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
         },
       },
       update: (cache, { data: { deleteSpeaker } }) => {
-        const { speakers } = cache.readQuery({ query: GET_SPEAKERS });
+        const { speakers } = cache.readQuery({
+          query: GET_SPEAKERS,
+          variables: {
+            offset: currentPage * limit,
+            limit,
+          },
+        });
 
         const newDataList = speakers.datalist.filter(
           (objSpeaker) => objSpeaker.id !== deleteSpeaker.id
@@ -63,10 +74,18 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
 
         cache.writeQuery({
           query: GET_SPEAKERS,
+          variables: {
+            offset: currentPage * limit,
+            limit,
+          },
           data: {
             speakers: {
               __typename: "SpeakerResults",
               datalist: newDataList,
+              pageInfo: {
+                __typename: "PageInfo",
+                totalItemCount: 0,
+              },
             },
           },
         });

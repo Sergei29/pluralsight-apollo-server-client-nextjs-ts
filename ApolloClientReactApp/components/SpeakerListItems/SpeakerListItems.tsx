@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useReactiveVar } from "@apollo/client";
 import { GET_SPEAKERS } from "../../graphql/queries";
+import { paginationDataVar } from "../../graphql/apolloProvider";
 import Toolbar from "../Toolbar/Toolbar";
 import SpeakerItem from "../SpeakerItem/SpeakerItem";
 // style:
@@ -15,13 +16,21 @@ type Props = {};
  */
 const SpeakerListItems: React.FC<Props> = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(GET_SPEAKERS);
+  const paginationData = useReactiveVar(paginationDataVar);
+  const { currentPage, limit } = paginationData;
+  const { loading, error, data } = useQuery(GET_SPEAKERS, {
+    variables: {
+      offset: currentPage * limit,
+      limit,
+    },
+  });
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <Fragment>
-      <Toolbar />
+      <Toolbar totalItemCount={data.speakers.pageInfo.totalItemCount} />
       <div>
         {data.speakers.datalist.map((objSpeaker) => (
           <SpeakerItem key={objSpeaker.id} speakerRec={objSpeaker} />

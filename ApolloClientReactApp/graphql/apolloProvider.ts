@@ -10,6 +10,12 @@ import {
  */
 export const currentThemeVar = makeVar("light");
 export const checkBoxListVar = makeVar([]);
+export const paginationDataVar = makeVar({
+  offset: 0,
+  limit: 3,
+  currentPage: 0,
+  totalItemCount: 0,
+});
 
 /**
  * @description custom hook
