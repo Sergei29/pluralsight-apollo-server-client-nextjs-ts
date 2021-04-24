@@ -80,14 +80,6 @@
       "first": "Gayle Laakmann",
       "last": "McDowell",
       "favorite": false
-    },
-    {
-      "company": "De Anza College",
-      "id": 620,
-      "bio": "Ron teaches Object Oriented Analysis and Design at De Anza College ",
-      "first": "Ron",
-      "last": "Kleinman",
-      "favorite": false
     }
   ]
 }

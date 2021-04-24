@@ -23,8 +23,8 @@ export const DELETE_SPEAKER = gql`
 `;
 
 export const TOGGLE_SPEAKER_FAVOURITE = gql`
-  mutation ToggleSpeakerFavourite($speakerId: Int!) {
-    toggleSpeakerFavourite(speakerId: $speakerId) {
+  mutation toggleSpeakerFavorite($speakerId: Int!) {
+    toggleSpeakerFavorite(speakerId: $speakerId) {
       id
       first
       last

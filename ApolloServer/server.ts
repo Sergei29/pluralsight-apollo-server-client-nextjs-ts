@@ -89,7 +89,7 @@ const resolvers: IResolvers = {
         });
 
       const pageInfo: PageInfoType = {
-        totalItemCount: datalist.length,
+        totalItemCount: arrAllSpeakers.length,
         lastCursor:
           datalist.length > 0
             ? getCursor(datalist[datalist.length - 1].id)

@@ -34,7 +34,7 @@ const Toolbar: React.FC<Props> = ({ totalItemCount }) => {
   const currentTheme = useReactiveVar(currentThemeVar);
   const paginationData = useReactiveVar(paginationDataVar);
   const arrSelectedSpeakersIds = useReactiveVar(checkBoxListVar);
-  const [toggleSpeakerFavourite] = useMutation(TOGGLE_SPEAKER_FAVOURITE);
+  const [toggleSpeakerFavorite] = useMutation(TOGGLE_SPEAKER_FAVOURITE);
   const [addSpeaker] = useMutation(ADD_SPEAKER);
   const { offset, limit, currentPage } = paginationData;
 
@@ -109,7 +109,7 @@ const Toolbar: React.FC<Props> = ({ totalItemCount }) => {
    */
   const toggleAllChecked = () =>
     arrSelectedSpeakersIds.forEach((currentId) => {
-      toggleSpeakerFavourite({
+      toggleSpeakerFavorite({
         variables: { speakerId: parseInt(currentId) },
       });
     });

@@ -36,7 +36,7 @@ type Props = {
 const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
   const { id, first, last, favorite, fullName, checkBoxColumn } = speakerRec;
   const classes = useStyles();
-  const [toggleSpeakerFavourite] = useMutation(TOGGLE_SPEAKER_FAVOURITE);
+  const [toggleSpeakerFavorite] = useMutation(TOGGLE_SPEAKER_FAVOURITE);
   const [deleteSpeaker] = useMutation(DELETE_SPEAKER);
   const arrSelectedSpeakersIds = useReactiveVar(checkBoxListVar);
   const paginationData = useReactiveVar(paginationDataVar);
@@ -98,11 +98,11 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
    * @returns {undefined} api call and cache update
    */
   const handleToggleFavourite = () => {
-    toggleSpeakerFavourite({
+    toggleSpeakerFavorite({
       variables: { speakerId: parseInt(id) },
       optimisticResponse: {
         __typename: "Mutation",
-        toggleSpeakerFavourite: {
+        toggleSpeakerFavorite: {
           __typename: "Speaker",
           id,
           first,
