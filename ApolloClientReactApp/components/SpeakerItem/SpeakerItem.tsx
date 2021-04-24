@@ -34,7 +34,7 @@ type Props = {
  * @returns {JSX} component markup, speaker display
  */
 const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
-  const { id, first, last, favourite, fullName, checkBoxColumn } = speakerRec;
+  const { id, first, last, favorite, fullName, checkBoxColumn } = speakerRec;
   const classes = useStyles();
   const [toggleSpeakerFavourite] = useMutation(TOGGLE_SPEAKER_FAVOURITE);
   const [deleteSpeaker] = useMutation(DELETE_SPEAKER);
@@ -56,7 +56,7 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
           id,
           first,
           last,
-          favourite,
+          favorite,
         },
       },
       update: (cache, { data: { deleteSpeaker } }) => {
@@ -94,7 +94,7 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
   };
 
   /**
-   *@description callback on toggle favourite
+   *@description callback on toggle favorite
    * @returns {undefined} api call and cache update
    */
   const handleToggleFavourite = () => {
@@ -107,7 +107,7 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
           id,
           first,
           last,
-          favourite: !favourite,
+          favorite: !favorite,
         },
       },
     });
@@ -143,7 +143,7 @@ const SpeakerItem: React.FC<Props> = ({ speakerRec }) => {
           </Grid>
           <Grid item sm={2}>
             <IconButton onClick={handleToggleFavourite}>
-              {favourite ? (
+              {favorite ? (
                 <StarIcon classes={{ root: classes.favIconRoot }} />
               ) : (
                 <StarBorderIcon classes={{ root: classes.favIconRoot }} />

@@ -6,7 +6,7 @@ export const ADD_SPEAKER = gql`
       id
       first
       last
-      favourite
+      favorite
     }
   }
 `;
@@ -17,7 +17,7 @@ export const DELETE_SPEAKER = gql`
       id
       first
       last
-      favourite
+      favorite
     }
   }
 `;
@@ -28,7 +28,7 @@ export const TOGGLE_SPEAKER_FAVOURITE = gql`
       id
       first
       last
-      favourite
+      favorite
     }
   }
 `;

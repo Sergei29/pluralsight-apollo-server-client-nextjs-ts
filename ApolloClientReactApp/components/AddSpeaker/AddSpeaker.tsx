@@ -19,7 +19,7 @@ import { useStyles } from "./style";
 const objInitialState = {
   first: "",
   last: "",
-  favourite: null,
+  favorite: null,
 };
 
 type Props = { handleAddSpeaker: (objSpeaker: NewSpeakerType) => void };
@@ -43,7 +43,7 @@ const AddSpeaker: React.FC<Props> = ({ handleAddSpeaker }) => {
     const { name, value, checked } = objEvent.target;
     setObjNewSpeaker((objPrevState) => ({
       ...objPrevState,
-      [name]: name === "favourite" ? checked : value,
+      [name]: name === "favorite" ? checked : value,
     }));
   };
   const handleResetForm = () => setObjNewSpeaker({ ...objInitialState });
@@ -102,12 +102,12 @@ const AddSpeaker: React.FC<Props> = ({ handleAddSpeaker }) => {
               control={
                 <Checkbox
                   onChange={handleChange}
-                  name="favourite"
+                  name="favorite"
                   color="primary"
-                  checked={objNewSpeaker.favourite}
+                  checked={objNewSpeaker.favorite}
                 />
               }
-              label="Favourite"
+              label="Favorite"
             />
           </FormControl>
         </DialogContent>

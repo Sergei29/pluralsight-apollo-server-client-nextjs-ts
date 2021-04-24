@@ -2,7 +2,7 @@ export type SpeakerType = {
   id: string;
   first: string;
   last: string;
-  favourite: boolean;
+  favorite: boolean;
   cursor?: string;
 };
 

@@ -104,7 +104,7 @@ const Toolbar: React.FC<Props> = ({ totalItemCount }) => {
   };
 
   /**
-   * @description to all checked speakers items it will toggle favourite status
+   * @description to all checked speakers items it will toggle favorite status
    * @returns {undefined} makes api query
    */
   const toggleAllChecked = () =>

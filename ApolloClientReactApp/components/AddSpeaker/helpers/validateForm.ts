@@ -8,7 +8,7 @@ import { NewSpeakerType } from "../../types";
 export const validateForm = (objFormData: NewSpeakerType) => {
   let bisValid = true;
   Object.entries(objFormData).forEach(([key, value]) => {
-    if (key !== "favourite") {
+    if (key !== "favorite") {
       bisValid = bisValid && (value as string).trim().length > 0;
     }
   });

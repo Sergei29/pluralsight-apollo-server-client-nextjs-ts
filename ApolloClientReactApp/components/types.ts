@@ -2,7 +2,7 @@ export type SpeakerType = {
   id: string;
   first: string;
   last: string;
-  favourite: boolean;
+  favorite: boolean;
   fullName?: string;
   checkBoxColumn?: boolean;
 };
@@ -10,5 +10,5 @@ export type SpeakerType = {
 export type NewSpeakerType = {
   first: string;
   last: string;
-  favourite: null | boolean;
+  favorite: null | boolean;
 };

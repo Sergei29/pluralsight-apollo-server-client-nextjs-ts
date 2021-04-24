@@ -19,14 +19,14 @@ const typeDefs = gql`
     id: ID!
     first: String
     last: String
-    favourite: Boolean
+    favorite: Boolean
     cursor: String
   }
 
   input SpeakerInput {
     first: String
     last: String
-    favourite: Boolean
+    favorite: Boolean
   }
 
   type PageInfo {
@@ -47,7 +47,7 @@ const typeDefs = gql`
 
   type Mutation {
     addSpeaker(speaker: SpeakerInput!): Speaker
-    toggleSpeakerFavourite(speakerId: Int!): Speaker
+    toggleSpeakerFavorite(speakerId: Int!): Speaker
     deleteSpeaker(speakerId: Int!): Speaker
   }
 `;
@@ -102,7 +102,7 @@ const resolvers: IResolvers = {
   },
   Mutation: {
     addSpeaker: async (parent, args, context, info) => {
-      const { first, last, favourite } = args.speaker;
+      const { first, last, favorite } = args.speaker;
       const { data: speakers } = await axios.get(`${DB_URI}/speakers`);
       const foundSpeaker = speakers.find((objSpeaker: SpeakerType) => {
         return objSpeaker.first === first && objSpeaker.last === last;
@@ -117,7 +117,7 @@ const resolvers: IResolvers = {
       const { data: newSpeaker } = await axios.post(`${DB_URI}/speakers`, {
         first,
         last,
-        favourite,
+        favorite,
       });
 
       return newSpeaker;
@@ -129,13 +129,13 @@ const resolvers: IResolvers = {
       await axios.delete(`${DB_URI}/speakers/${args.speakerId}`);
       return foundSpeaker;
     },
-    toggleSpeakerFavourite: async (parent, args, context, info) => {
+    toggleSpeakerFavorite: async (parent, args, context, info) => {
       const { data: foundSpeaker } = await axios.get(
         `${DB_URI}/speakers/${args.speakerId}`
       );
       const toggledSpeaker = {
         ...foundSpeaker,
-        favourite: !foundSpeaker.favourite,
+        favorite: !foundSpeaker.favorite,
       };
 
       await axios.put(`${DB_URI}/speakers/${args.speakerId}`, toggledSpeaker);
