@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { useApolloClient, useReactiveVar, useMutation } from "@apollo/client";
 import AppBar from "@material-ui/core/AppBar";
 import ToolbarMui from "@material-ui/core/Toolbar";
@@ -131,6 +132,9 @@ const Toolbar: React.FC<Props> = ({ totalItemCount }) => {
           <Typography variant="h6" className={classes.title}>
             Speaker list
           </Typography>
+          <Link href="/speakers-cursor">
+            <a>speakers cursor</a>
+          </Link>
           <PaginationControls lastPage={lastPage} />
           <FormControlLabel
             control={
