@@ -121,19 +121,14 @@ const Toolbar: React.FC<Props> = ({ totalItemCount }) => {
     <div className={classes.root}>
       <AppBar position="static">
         <ToolbarMui className={classes.toolBar}>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             Speaker list
           </Typography>
           <Link href="/speakers-cursor">
             <a>speakers cursor</a>
+          </Link>
+          <Link href="/sessions-cursor">
+            <a>sessions cursor</a>
           </Link>
           <PaginationControls lastPage={lastPage} />
           <FormControlLabel
